@@ -1,0 +1,23 @@
+{
+  "name": "publicgoods-form-opens-pr",
+  "version": "0.0.1",
+  "description": "Online form submission opens GitHub pull request",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicef/publicgoods-form-opens-pr.git"
+  },
+  "author": "",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/unicef/publicgoods-form-opens-pr/issues"
+  },
+  "homepage": "https://github.com/unicef/publicgoods-form-opens-pr#readme",
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "request": "^2.88.2"
+  }
+}
