@@ -47,6 +47,7 @@ If you want to try this code out:
 The following alternatives were evaluated, but discarded:
 * **Zapier** integration between Google Forms and GitHub. Even when they offer a Zap to open a pull request, this only covers the very last step of the ones outlined above, creating a pull request from a pre-existing feature branch. However, there is no support for committing files, which renders their offerings as fairly useless for our needs.
 * **Automate.io** is similar to Zapier, but their GitHub integrations are even more limited: they allow to create issues, but not to create pull requests 🤷‍♂️
+* **Survey Monkey** as an alternative to Google Forms. Unfortunately they don't seem to offer any possibility to run custom code, or to trigger any automated action upon the submission of a new entry.
 
 ## License
 
