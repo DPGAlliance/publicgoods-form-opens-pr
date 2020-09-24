@@ -54,7 +54,7 @@ function getValues() {
 
 function createBranch(head) { 
   values = getValues();
-  branchName = values[2].replace(/ /g, "_");
+  branchName = values[2].replace(/[^A-Za-z0-9 ]/g, '').replace(/ /g, "_");
   var myOptions = options;
   myOptions['method'] = 'post';
   myOptions['payload'] = JSON.stringify({
@@ -68,7 +68,7 @@ function createBranch(head) {
 
 function commitFile(){
     
-  const filename = values[2].toLowerCase().replace(/ /g, "-").replace(/,/g, "").replace(/"/g, "");
+  const filename = values[2].toLowerCase().replace(/ /g, "-").replace(/[,:]/g, "").replace(/"/g, "");
   
   let sdgsArray = values[8].split(',');
 
