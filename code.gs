@@ -54,13 +54,14 @@ function getValues() {
 
 function createBranch(head) { 
   values = getValues();
-  branchName = values[2].replace(/[^A-Za-z0-9 ]/g, '').replace(/ /g, "_");
-  var myOptions = options;
+  branchName = values[2].replace(/[^A-Za-z0-9 ]/g, '').replace(/ /g, "_") + '-' + (Math.random()*(10**16)).toString(36);
+  var myOptions = JSON.parse(JSON.stringify(options));
   myOptions['method'] = 'post';
   myOptions['payload'] = JSON.stringify({
     "ref": "refs/heads/" + branchName,
     "sha": head
   });
+  Logger.log('Attempting to create branch: '+ branchName);
   var response = UrlFetchApp.fetch('https://api.github.com/repos/' + githubOrg + '/' + githubRepo + '/git/refs', myOptions)
   Logger.log('New branch ' + branchName + ' created successfully.');
   commitFile();
@@ -71,7 +72,6 @@ function commitFile(){
   const filename = values[2].toLowerCase().replace(/ /g, "-").replace(/[,:]/g, "").replace(/"/g, "");
   
   let sdgsArray = values[8].split(',');
-
   let sdgs = []
 
   sdgsArray.forEach(function(currentValue, index, arr) {
@@ -111,13 +111,24 @@ function commitFile(){
   }
    
   var encoded = Utilities.base64Encode(JSON.stringify(content, null, 2)+"\n\n");
-  
-  var myOptions = options;
+
+  var myOptions = JSON.parse(JSON.stringify(options));
+  myOptions['method'] = 'get';
+  myOptions['muteHttpExceptions'] = true;
+  var sha = null
+  var response = UrlFetchApp.fetch('https://api.github.com/repos/' + githubOrg + '/' + githubRepo + '/contents/nominees/' + filename + '.json', myOptions)
+  const r = JSON.parse(response.getContentText());
+
+  if (response.getResponseCode() == 200) {
+    sha = r['sha'];
+  }
+
   myOptions['method'] = 'put';
   myOptions['payload'] = JSON.stringify({
     'message': 'BLD: Add ' + values[2],
     'content': encoded,
-    'branch': branchName
+    'branch': branchName,
+    'sha': sha
   });
   var response = UrlFetchApp.fetch('https://api.github.com/repos/' + githubOrg + '/' + githubRepo + '/contents/nominees/' + filename + '.json', myOptions)
   Logger.log('File committed successfully.');
@@ -125,7 +136,7 @@ function commitFile(){
 }
 
 function createPR(){
-  var myOptions = options;
+  var myOptions = JSON.parse(JSON.stringify(options));
   myOptions['method'] = 'post';
   myOptions['payload'] = JSON.stringify({
     'title': 'Add nominee: ' + values[2],
