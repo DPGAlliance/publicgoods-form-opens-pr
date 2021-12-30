@@ -3,7 +3,7 @@ Online webform submission opens GitHub pull request
 
 ## Motivation
 
-In order to streamline the nomination process for Digital Public Goods (DPGs), we want to have an online webform that prompts the user for a number of fields, and then packages those fields into a JSON-compliant file, and opens a Pull Request to the [unicef/publicgoods-candidates](https://github.com/unicef/publicgoods-candidates) repository for further review and merging.
+In order to streamline the nomination process for Digital Public Goods (DPGs), we want to have an online webform that prompts the user for a number of fields, and then packages those fields into a JSON-compliant file, and opens a Pull Request to the [DPGAlliance/publicgoods-candidates](https://github.com/DPGAlliance/publicgoods-candidates) repository for further review and merging.
 
 Programmatically opening a pull request is a multi-step process that involves:
 1. Get a the latest reference to the master branch
